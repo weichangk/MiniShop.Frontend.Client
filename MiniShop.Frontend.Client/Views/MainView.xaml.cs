@@ -22,6 +22,27 @@ namespace MiniShop.Frontend.Client.Views
         public MainView()
         {
             InitializeComponent();
+            btnMin.Click += (s, e) => { this.WindowState = WindowState.Minimized; };
+            btnMax.Click += (s, e) => {
+                if (this.WindowState == WindowState.Maximized)
+                    this.WindowState = WindowState.Normal;
+                else
+                    this.WindowState = WindowState.Maximized;
+
+            };
+            btnExit.Click += (s, e) => { this.Close(); };
+
+            ColorZone.MouseMove += (s, e) => {
+                if (e.LeftButton == MouseButtonState.Pressed)
+                    this.DragMove();
+            };
+
+            ColorZone.MouseDoubleClick += (s, e) => {
+                if (this.WindowState == WindowState.Maximized)
+                    this.WindowState = WindowState.Normal;
+                else
+                    this.WindowState = WindowState.Maximized;
+            };
         }
     }
 }
