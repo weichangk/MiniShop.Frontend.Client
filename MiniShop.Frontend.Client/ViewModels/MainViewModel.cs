@@ -1,5 +1,8 @@
 ﻿using MiniShop.Frontend.Client.Common;
+using MiniShop.Frontend.Client.Extensions;
+using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,13 +12,26 @@ using System.Threading.Tasks;
 
 namespace MiniShop.Frontend.Client.ViewModels
 {
-    public class MainWindowModel : BindableBase
+    public class MainViewModel : BindableBase
     {
-        public MainWindowModel()
+        public MainViewModel(IRegionManager regionManager)
         {
+            MenuBars = new ObservableCollection<MenuBar>();
             CreateMenuBar();
+            NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
+            this.regionManager = regionManager;
         }
 
+        private void Navigate(MenuBar obj)
+        {
+            if (obj == null || string.IsNullOrEmpty(obj.NameSpace))
+                return;     
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate(obj.Title);
+        }
+
+        public DelegateCommand<MenuBar> NavigateCommand { get; }
+
+        private readonly IRegionManager regionManager;
         private ObservableCollection<MenuBar> menuBars;
         public ObservableCollection<MenuBar> MenuBars 
         {

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MiniShop.Frontend.Client.Extensions
 {
-    internal class Class1
+    public class PrismManager
     {
+        public static readonly string MainViewRegionName = "MainViewRegion";
     }
 }

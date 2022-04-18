@@ -1,4 +1,6 @@
-﻿using Prism.DryIoc;
+﻿using MiniShop.Frontend.Client.ViewModels;
+using MiniShop.Frontend.Client.Views;
+using Prism.DryIoc;
 using Prism.Ioc;
 using System;
 using System.Collections.Generic;
@@ -17,11 +19,15 @@ namespace MiniShop.Frontend.Client
     {
         protected override Window CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            return Container.Resolve<MainView>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<CashierView, CashierViewModel>();
+            containerRegistry.RegisterForNavigation<CheckDealView, CheckDealViewModel>();
+            containerRegistry.RegisterForNavigation<CheckStockView, CheckStockViewModel>();
+            containerRegistry.RegisterForNavigation<SettingView, SettingViewModel>();
         }
     }
 }
