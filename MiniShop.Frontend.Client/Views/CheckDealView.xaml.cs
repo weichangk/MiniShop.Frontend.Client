@@ -17,7 +17,7 @@ namespace MiniShop.Frontend.Client.Views
     /// <summary>
     /// CheckDealView.xaml 的交互逻辑
     /// </summary>
-    public partial class CheckDealView : Window
+    public partial class CheckDealView : UserControl
     {
         public CheckDealView()
         {

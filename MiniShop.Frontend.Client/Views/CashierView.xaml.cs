@@ -17,7 +17,7 @@ namespace MiniShop.Frontend.Client.Views
     /// <summary>
     /// CashierView.xaml 的交互逻辑
     /// </summary>
-    public partial class CashierView : Window
+    public partial class CashierView : UserControl
     {
         public CashierView()
         {

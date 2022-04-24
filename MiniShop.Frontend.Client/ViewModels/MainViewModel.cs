@@ -16,22 +16,36 @@ namespace MiniShop.Frontend.Client.ViewModels
     {
         public MainViewModel(IRegionManager regionManager)
         {
-            MenuBars = new ObservableCollection<MenuBar>();
             CreateMenuBar();
-            NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
             this.regionManager = regionManager;
+            NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
+            GoBackCommand = new DelegateCommand(() =>
+            {
+                if(journal != null && journal.CanGoBack)
+                    journal.GoBack();
+            });
+            GoForwardCommand = new DelegateCommand(() => {
+                if (journal != null && journal.CanGoForward)
+                    journal.GoForward();
+            });
         }
 
         private void Navigate(MenuBar obj)
         {
             if (obj == null || string.IsNullOrEmpty(obj.NameSpace))
                 return;     
-            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate(obj.Title);
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate(obj.NameSpace, back => {
+                journal = back.Context.NavigationService.Journal;
+            });
         }
 
         public DelegateCommand<MenuBar> NavigateCommand { get; }
+        public DelegateCommand GoBackCommand { get; }
+        public DelegateCommand GoForwardCommand { get; }
 
         private readonly IRegionManager regionManager;
+        private IRegionNavigationJournal journal;
+
         private ObservableCollection<MenuBar> menuBars;
         public ObservableCollection<MenuBar> MenuBars 
         {
@@ -41,6 +55,7 @@ namespace MiniShop.Frontend.Client.ViewModels
 
         void CreateMenuBar()
         {
+            MenuBars = new ObservableCollection<MenuBar>();
             MenuBars.Add(new MenuBar { Icon = "Home", Title = "收银", NameSpace = "CashierView" });
             MenuBars.Add(new MenuBar { Icon = "FileArrowLeftRight", Title = "查交易", NameSpace = "CheckDealView" });
             MenuBars.Add(new MenuBar { Icon = "Vhs", Title = "查库存", NameSpace = "CheckStockView" });
