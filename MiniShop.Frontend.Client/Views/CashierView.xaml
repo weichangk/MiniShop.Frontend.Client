@@ -8,7 +8,7 @@
     xmlns:prism="http://prismlibrary.com/"
     xmlns:local="clr-namespace:MiniShop.Frontend.Client.Views"
     mc:Ignorable="d"
-    Height="450" Width="800"
+    Height="768" Width="1280"
     prism:ViewModelLocator.AutoWireViewModel="True"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextElement.FontWeight="Regular"
@@ -18,6 +18,16 @@
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <TextBlock Text="收银" FontSize="400"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="360"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <local:ShopView>
+            
+        </local:ShopView>
+        <TextBlock 
+            Grid.Column="1"
+            Text="收银" FontSize="40"/>
+        
     </Grid>
 </UserControl>
