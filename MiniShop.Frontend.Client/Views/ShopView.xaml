@@ -8,7 +8,7 @@
     xmlns:prism="http://prismlibrary.com/"
     xmlns:local="clr-namespace:MiniShop.Frontend.Client.Views"
     mc:Ignorable="d" 
-    d:DesignHeight="768" d:DesignWidth="360"
+    d:DesignHeight="768" d:DesignWidth="380"
     prism:ViewModelLocator.AutoWireViewModel="True"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextElement.FontWeight="Regular"
@@ -17,77 +17,108 @@
     TextOptions.TextRenderingMode="Auto"        
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="ListShopItemViewTemplate">
+            <Grid Width="380" Height="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Code}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Number}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Amount}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="130"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+
+        <!--<Grid Background="CadetBlue">
+
+        </Grid>-->
         
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <StackPanel Margin="10">
+            <StackPanel Margin="20,10,10,10">
                 <WrapPanel>
                     <TextBlock Text="上一单："/>
-                    <TextBlock Text="12345678"/>
+                    <TextBlock Text="{Binding ShopDto.ShopPreviousBillDto.BillNo}" d:Text="12345678"/>
                 </WrapPanel>
                 <TextBlock/>
                 <WrapPanel>
                     <TextBlock Text="应    收："/>
-                    <TextBlock Text="99.00"/>
+                    <TextBlock Text="{Binding ShopDto.ShopPreviousBillDto.Receivable, StringFormat={}{0:F2}}" d:Text="99.00"/>
                 </WrapPanel>
                 <TextBlock/>
                 <WrapPanel>
                     <TextBlock Text="实    收："/>
-                    <TextBlock Text="100.00"/>
+                    <TextBlock Text="{Binding ShopDto.ShopPreviousBillDto.Realreceivable, StringFormat={}{0:F2}}" d:Text="100.00"/>
                 </WrapPanel>
                 <TextBlock/>
                 <WrapPanel>
                     <TextBlock Text="找    零："/>
-                    <TextBlock Text="1.00"/>
+                    <TextBlock Text="{Binding ShopDto.ShopPreviousBillDto.GiveChange, StringFormat={}{0:F2}}" d:Text="1.00"/>
                 </WrapPanel>
             </StackPanel>
-            <StackPanel Grid.Column="1" Margin="10">
+            <StackPanel Grid.Column="1" Margin="20,10,10,10">
                 <WrapPanel>
                     <TextBlock Text="会    员："/>
-                    <TextBlock Text="88888888"/>
+                    <TextBlock Text="{Binding ShopDto.ShopVipDto.Name}" d:Text="88888888"/>
                 </WrapPanel>
                 <TextBlock/>
                 <WrapPanel>
                     <TextBlock Text="手    机："/>
-                    <TextBlock Text="18288888888"/>
+                    <TextBlock Text="{Binding ShopDto.ShopVipDto.Phone}" d:Text="18288888888"/>
                 </WrapPanel>
                 <TextBlock/>
                 <WrapPanel>
                     <TextBlock Text="余    额："/>
-                    <TextBlock Text="999.99"/>
+                    <TextBlock Text="{Binding ShopDto.ShopVipDto.Remain, StringFormat={}{0:F2}}" d:Text="999.99"/>
                 </WrapPanel>
                 <TextBlock/>
                 <WrapPanel>
                     <TextBlock Text="积    分："/>
-                    <TextBlock Text="520"/>
+                    <TextBlock Text="{Binding ShopDto.ShopVipDto.Integral, StringFormat={}{0:F2}}" d:Text="520"/>
                 </WrapPanel>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="合计：" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
-            <TextBlock Grid.Column="1" Text="999件" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
-            <TextBlock Grid.Column="2" Text="￥999.99" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
+            <TextBlock Text="合计：" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Margin="20,0,0,0"/>
+            <TextBlock Grid.Column="1" Text="{Binding ShopDto.Number, StringFormat={}{0:F2}件}" d:Text="999件" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
+            <TextBlock Grid.Column="2" Text="{Binding ShopDto.Amount, StringFormat=￥{0:F2}}" d:Text="￥999.99" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
         </Grid>
         
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -117,7 +148,7 @@
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
         </Grid>
 
-        <Grid Grid.Row="5">
+        <Grid Grid.Row="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -125,12 +156,12 @@
             <Button
                 Margin="3"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Height="60"
+                Height="42"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedLightButton with Round Corners"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <TextBlock
-                    FontSize="36"
+                    FontSize="28"
                     FontWeight="Bold"
                     Text="会 员" />
             </Button>
@@ -139,35 +170,34 @@
                 Grid.Column="1"
                 Margin="3"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                Height="60"
+                Height="42"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedLightButton with Round Corners"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <TextBlock
-                    FontSize="36"
+                    FontSize="28"
                     FontWeight="Bold"
                     Text="结  账" />
             </Button>
         </Grid>
 
-
-        <ListView Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding Code}"
-                        Header="品名" />
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding Name}"
-                        Header="售价" />
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding Description}"
-                        Header="数量" />
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding Description}"
-                        Header="小计" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Grid  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="56"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="#" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Text="品名" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="2" Text="售价" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="3" Text="数量" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="4" Text="小计" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        </Grid>
+        <ListBox Grid.Row="2" Margin="0,0,0,20" ItemsSource="{Binding ShopDto.ShopItemDtos}" ItemTemplate="{StaticResource ListShopItemViewTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            
+        </ListBox>
+        
     </Grid>
 </UserControl>

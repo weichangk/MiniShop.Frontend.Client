@@ -30,11 +30,11 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Text="999." VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Text="芙蓉王哈哈哈哈哈哈哈哈哈" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="123456789012" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-        <TextBlock Grid.Row="1" Grid.Column="2" Text="100.00" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBlock Grid.Row="1" Grid.Column="3" Text="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBlock Grid.Row="1" Grid.Column="4" Text="1000.00" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Text="{Binding ShopItemDto.Id}" d:Text="999." VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding ShopItemDto.Name}" d:Text="芙蓉王哈哈哈哈哈哈哈哈哈" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ShopItemDto.Code}" d:Text="123456789012" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding ShopItemDto.Price}" d:Text="100.00" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding ShopItemDto.Number}" d:Text="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding ShopItemDto.Amount}" d:Text="1000.00" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>

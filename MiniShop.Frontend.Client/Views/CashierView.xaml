@@ -19,15 +19,19 @@
     FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="360"/>
+            <ColumnDefinition Width="380"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <local:ShopView>
-            
-        </local:ShopView>
-        <TextBlock 
-            Grid.Column="1"
-            Text="收银" FontSize="40"/>
-        
+        <local:ShopView/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <local:CategoryView/>
+            <StackPanel Grid.Row="2" Background="Black"/>
+        </Grid>
+
     </Grid>
 </UserControl>
