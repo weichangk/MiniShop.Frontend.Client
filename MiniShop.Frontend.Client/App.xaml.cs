@@ -27,6 +27,7 @@ namespace MiniShop.Frontend.Client
             containerRegistry.RegisterForNavigation<CashierView, CashierViewModel>();
             containerRegistry.RegisterForNavigation<ShopView, ShopViewModel>();
             containerRegistry.RegisterForNavigation<CategoryView, CategoryViewModel>();
+            containerRegistry.RegisterForNavigation<ItemsView, ItemsViewModel>();
 
             containerRegistry.RegisterForNavigation<CheckDealView, CheckDealViewModel>();
             containerRegistry.RegisterForNavigation<CheckStockView, CheckStockViewModel>();

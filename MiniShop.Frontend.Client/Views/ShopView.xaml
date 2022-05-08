@@ -49,8 +49,8 @@
             <RowDefinition Height="40"/>
             <RowDefinition/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="38"/>
+            <RowDefinition Height="0"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
@@ -126,26 +126,19 @@
             </Grid.ColumnDefinitions>
             <Button
                 Margin="2"
-                Style="{StaticResource MaterialDesignPaperButton}"
-                ToolTip="MaterialDesignFlatMidButton"
-                Content="整单取消"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+                Content="整单取消"/>
 
             <Button
                 Margin="2"
                 Grid.Column="1"
-                Style="{StaticResource MaterialDesignPaperButton}"
-                ToolTip="MaterialDesignFlatMidButton"
-                Content="上一页"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+                ToolTip="上一页"
+                Content="{materialDesign:PackIcon Kind=MenuUp,Size=24}"/>
 
             <Button
                 Margin="2"
                 Grid.Column="2"
-                Style="{StaticResource MaterialDesignPaperButton}"
-                ToolTip="MaterialDesignFlatMidButton"
-                Content="下一页"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+                ToolTip="下一页"
+                Content="{materialDesign:PackIcon Kind=MenuDown,Size=24}"/>
         </Grid>
 
         <Grid Grid.Row="6">
@@ -154,8 +147,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button
-                Margin="3"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Margin="2"
                 Height="42"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedLightButton with Round Corners"
@@ -168,8 +160,7 @@
             
             <Button
                 Grid.Column="1"
-                Margin="3"
-                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                Margin="2"
                 Height="42"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedLightButton with Round Corners"
