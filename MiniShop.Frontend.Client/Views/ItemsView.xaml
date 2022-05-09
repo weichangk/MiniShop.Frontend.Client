@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:local="clr-namespace:MiniShop.Frontend.Client.Views"
     mc:Ignorable="d" 
@@ -22,8 +22,8 @@
             <RowDefinition/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        
-        <ScrollViewer>
+
+        <ScrollViewer x:Name="ItemsScrollViewer" VerticalScrollBarVisibility="Hidden">
             <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding ItemDtos}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -33,7 +33,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=ExpandIn}">
+                        <md:TransitioningContent OpeningEffect="{md:TransitionEffect Kind=ExpandIn}">
                             <Grid
                                 Width="212"
                                 MinHeight="140"
@@ -58,7 +58,7 @@
                                             Padding="10,5"
                                             Text="{Binding Code}" />
                             </Grid>
-                        </materialDesign:TransitioningContent>
+                        </md:TransitioningContent>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -70,24 +70,24 @@
                         DockPanel.Dock="Top"
                         Margin="16, 4"
                         Width="700"
-                        materialDesign:HintAssist.Hint="Search"
-                        materialDesign:HintAssist.IsFloating="True"
-                        materialDesign:TextFieldAssist.HasClearButton="True"
-                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
-                        materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
-                        materialDesign:TextFieldAssist.TextFieldCornerRadius="4"/>
+                        md:HintAssist.Hint="Search"
+                        md:HintAssist.IsFloating="True"
+                        md:TextFieldAssist.HasClearButton="True"
+                        md:TextFieldAssist.HasOutlinedTextField="True"
+                        md:TextFieldAssist.DecorationVisibility="Collapsed"
+                        md:TextFieldAssist.TextFieldCornerRadius="4"/>
             <Button
                 Margin="2,2"
                 Width="100"
                 Height="30"
-                ToolTip="上一页"
-                Content="{materialDesign:PackIcon Kind=MenuUp,Size=24}"/>
+                Content="{md:PackIcon Kind=MenuUp,Size=24}"
+                Click="Up_Click"/>
             <Button
                 Margin="2,2,25,2"
                 Width="100"
                 Height="30"
-                ToolTip="下一页"
-                Content="{materialDesign:PackIcon Kind=MenuDown,Size=24}"/>
+                Content="{md:PackIcon Kind=MenuDown,Size=24}"
+                Click="Down_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:local="clr-namespace:MiniShop.Frontend.Client.Views"
+    xmlns:local="clr-namespace:MiniShop.Frontend.Client.Views" 
     mc:Ignorable="d" 
     d:DesignHeight="768" d:DesignWidth="380"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -17,31 +17,6 @@
     TextOptions.TextRenderingMode="Auto"        
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{DynamicResource MaterialDesignFont}">
-
-    <UserControl.Resources>
-        <DataTemplate x:Key="ListShopItemViewTemplate">
-            <Grid Width="380" Height="40">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="110"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Code}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Number}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Amount}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            </Grid>
-        </DataTemplate>
-    </UserControl.Resources>
-
 
     <Grid>
         <Grid.RowDefinitions>
@@ -126,19 +101,26 @@
             </Grid.ColumnDefinitions>
             <Button
                 Margin="2"
-                Content="整单取消"/>
+                Content="整单取消"
+                Command="{Binding ExecuteCommand}" 
+                CommandParameter="AllCancel"
+                Cursor="Hand"/>
 
             <Button
                 Margin="2"
                 Grid.Column="1"
-                ToolTip="上一页"
-                Content="{materialDesign:PackIcon Kind=MenuUp,Size=24}"/>
+                Content="{md:PackIcon Kind=MenuUp,Size=24}"
+                Command="{Binding ExecuteCommand}" 
+                CommandParameter="PageUp" 
+                Click="PageUp_Click" Cursor="Hand"/>
 
             <Button
                 Margin="2"
                 Grid.Column="2"
-                ToolTip="下一页"
-                Content="{materialDesign:PackIcon Kind=MenuDown,Size=24}"/>
+                Content="{md:PackIcon Kind=MenuDown,Size=24}"
+                Command="{Binding ExecuteCommand}" 
+                CommandParameter="PageDown" 
+                Click="PageDown_Click"/>
         </Grid>
 
         <Grid Grid.Row="6">
@@ -149,9 +131,11 @@
             <Button
                 Margin="2"
                 Height="42"
-                materialDesign:ButtonAssist.CornerRadius="5"
+                md:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedLightButton with Round Corners"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                Command="{Binding ExecuteCommand}" 
+                CommandParameter="Vip">
                 <TextBlock
                     FontSize="28"
                     FontWeight="Bold"
@@ -162,9 +146,11 @@
                 Grid.Column="1"
                 Margin="2"
                 Height="42"
-                materialDesign:ButtonAssist.CornerRadius="5"
+                md:ButtonAssist.CornerRadius="5"
                 ToolTip="MaterialDesignRaisedLightButton with Round Corners"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                Command="{Binding ExecuteCommand}" 
+                CommandParameter="SettleAccounts" Cursor="Hand">
                 <TextBlock
                     FontSize="28"
                     FontWeight="Bold"
@@ -186,9 +172,42 @@
             <TextBlock Grid.Column="3" Text="数量" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <TextBlock Grid.Column="4" Text="小计" VerticalAlignment="Center" HorizontalAlignment="Left"/>
         </Grid>
-        <ListBox Grid.Row="2" Margin="0,0,0,20" ItemsSource="{Binding ShopDto.ShopItemDtos}" ItemTemplate="{StaticResource ListShopItemViewTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-            
-        </ListBox>
+
+        <ScrollViewer Grid.Row="2" Margin="10,0,0,30" x:Name="ShopItemScrollViewer" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding ShopDto.ShopItemDtos}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="380" Height="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25"/>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition Height="10"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Code}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Number}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Amount}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                
+            </ItemsControl>
+        </ScrollViewer>
+        
         
     </Grid>
 </UserControl>

@@ -24,5 +24,15 @@ namespace MiniShop.Frontend.Client.Views
         {
             InitializeComponent();
         }
+
+        private void Up_Click(object sender, RoutedEventArgs e)
+        {
+            ItemsScrollViewer.PageUp();
+        }
+
+        private void Down_Click(object sender, RoutedEventArgs e)
+        {
+            ItemsScrollViewer.PageDown();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MiniShop.Frontend.Client.Dtos;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,9 @@ namespace MiniShop.Frontend.Client.ViewModels
 
         public ShopViewModel()
         {
+            ExecuteCommand = new DelegateCommand<string>(Execute);
+
+            #region datainit
             ShopDto = new ShopDto()
             {
                 ShopPreviousBillDto = new ShopPreviousBillDto(),
@@ -29,7 +33,7 @@ namespace MiniShop.Frontend.Client.ViewModels
             };
 
             ShopDto.Amount = 123;
-            shopDto.Number = 10;
+            ShopDto.Number = 10;
 
             ShopDto.ShopPreviousBillDto.BillNo = "1111111111111";
             ShopDto.ShopPreviousBillDto.Receivable = 1;
@@ -60,7 +64,7 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
             ShopDto.ShopItemDtos.Add(new ShopItemDto
             {
-                Id = 92,
+                Id = 3,
                 Name = "哈哈哈",
                 Code = "6699663355114",
                 Price = 9999.99M,
@@ -69,7 +73,7 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
             ShopDto.ShopItemDtos.Add(new ShopItemDto
             {
-                Id = 2,
+                Id = 4,
                 Name = "哈哈哈",
                 Code = "6699663355114",
                 Price = 9999.99M,
@@ -78,7 +82,7 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
             ShopDto.ShopItemDtos.Add(new ShopItemDto
             {
-                Id = 2,
+                Id = 5,
                 Name = "哈哈哈",
                 Code = "6699663355114",
                 Price = 9999.99M,
@@ -87,7 +91,7 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
             ShopDto.ShopItemDtos.Add(new ShopItemDto
             {
-                Id = 2,
+                Id = 6,
                 Name = "哈哈哈",
                 Code = "6699663355114",
                 Price = 9999.99M,
@@ -96,7 +100,7 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
             ShopDto.ShopItemDtos.Add(new ShopItemDto
             {
-                Id = 2,
+                Id = 7,
                 Name = "哈哈哈",
                 Code = "6699663355114",
                 Price = 9999.99M,
@@ -105,7 +109,7 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
             ShopDto.ShopItemDtos.Add(new ShopItemDto
             {
-                Id = 2,
+                Id = 8,
                 Name = "哈哈哈",
                 Code = "6699663355114",
                 Price = 9999.99M,
@@ -114,7 +118,7 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
             ShopDto.ShopItemDtos.Add(new ShopItemDto
             {
-                Id = 2,
+                Id = 9,
                 Name = "哈哈哈",
                 Code = "6699663355114",
                 Price = 9999.99M,
@@ -123,14 +127,229 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
             ShopDto.ShopItemDtos.Add(new ShopItemDto
             {
-                Id = 2,
+                Id = 10,
                 Name = "哈哈哈",
                 Code = "6699663355114",
                 Price = 9999.99M,
                 Number = 9999.99M,
                 Amount = 1013.01M,
             });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 11,
+                Name = "哈哈哈",
+                Code = "1234567890123",
+                Price = 10,
+                Number = 1,
+                Amount = 10,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 12,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 13,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 14,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 15,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 16,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 17,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 18,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 19,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 20,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 21,
+                Name = "哈哈哈",
+                Code = "1234567890123",
+                Price = 10,
+                Number = 1,
+                Amount = 10,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 22,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 23,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 24,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 25,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 26,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 27,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 28,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 29,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            ShopDto.ShopItemDtos.Add(new ShopItemDto
+            {
+                Id = 30,
+                Name = "哈哈哈",
+                Code = "6699663355114",
+                Price = 9999.99M,
+                Number = 9999.99M,
+                Amount = 1013.01M,
+            });
+            #endregion
 
+        }
+
+        public DelegateCommand<string> ExecuteCommand { get; private set; }
+
+        private void Execute(string obj)
+        {
+            switch (obj)
+            {
+                case "AllCancel": AllCancel(); break;
+                case "PageUp": PageUp(); break;
+                case "PageDown": PageDown(); break;
+                case "Vip": Vip(); break;
+                case "SettleAccounts": SettleAccounts(); break;
+            }
+        }
+
+        private void AllCancel()
+        {
+        }
+
+        private void PageUp()
+        { 
+        }
+
+        private void PageDown()
+        {
+        }
+
+        private void Vip()
+        {
+        }
+
+        private void SettleAccounts()
+        {
         }
     }
 }

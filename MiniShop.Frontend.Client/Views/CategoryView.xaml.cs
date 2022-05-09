@@ -24,5 +24,15 @@ namespace MiniShop.Frontend.Client.Views
         {
             InitializeComponent();
         }
+
+        private void Left_Click(object sender, RoutedEventArgs e)
+        {
+            CategoryScrollViewer.PageLeft();
+        }
+
+        private void Right_Click(object sender, RoutedEventArgs e)
+        {
+            CategoryScrollViewer.PageRight();
+        }
     }
 }

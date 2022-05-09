@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:local="clr-namespace:MiniShop.Frontend.Client"
         xmlns:ext="clr-namespace:MiniShop.Frontend.Client.Extensions"
@@ -19,15 +19,15 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
 
-    <materialDesign:DialogHost
+    <md:DialogHost
         Identifier="RootDialog"
         DialogTheme="Inherit"
         SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
 
-        <materialDesign:DrawerHost
+        <md:DrawerHost
             x:Name="drawerHost"
             IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
-            <materialDesign:DrawerHost.LeftDrawerContent>
+            <md:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="220">
                     <StackPanel Margin="0,20">
                         <Image 
@@ -60,7 +60,7 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Margin="15,0"
+                                        <md:PackIcon Margin="15,0"
                                                                  Kind="{Binding Icon}"/>
                                         <TextBlock
                                             Margin="10,0"
@@ -72,13 +72,13 @@
 
                     </StackPanel>
                 </DockPanel>
-            </materialDesign:DrawerHost.LeftDrawerContent>
+            </md:DrawerHost.LeftDrawerContent>
 
             <DockPanel>
-                <materialDesign:ColorZone
+                <md:ColorZone
                     x:Name="ColorZone"
                     Padding="16"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    md:ShadowAssist.ShadowDepth="Depth2"
                     Mode="PrimaryMid"
                     DockPanel.Dock="Top">
                     <DockPanel>
@@ -93,19 +93,19 @@
                                 Margin="24,0,0,0"
                                 ToolTip="前进"
                                 Command="{Binding GoForwardCommand}"
-                                Content="{materialDesign:PackIcon Kind=ArrowLeft, Size=24}"
+                                Content="{md:PackIcon Kind=ArrowLeft, Size=24}"
                                 Style="{StaticResource MaterialDesignToolButton}"
                                 Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
-                                materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}" Cursor="Hand"/>
+                                md:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}" Cursor="Hand"/>
 
                             <Button 
                                 Margin="16,0,0,0"
                                 ToolTip="后退"
                                 Command="{Binding GoBackCommand}"
-                                Content="{materialDesign:PackIcon Kind=ArrowRight, Size=24}"
+                                Content="{md:PackIcon Kind=ArrowRight, Size=24}"
                                 Style="{StaticResource MaterialDesignToolButton}"
                                 Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
-                                materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"/>
+                                md:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"/>
 
                             <TextBlock
                                 Margin="20,0"
@@ -128,10 +128,10 @@
                         </StackPanel>
 
                     </DockPanel>
-                </materialDesign:ColorZone>
+                </md:ColorZone>
 
                 <ContentControl prism:RegionManager.RegionName="{x:Static ext:PrismManager.MainViewRegionName}"/>
             </DockPanel>
-        </materialDesign:DrawerHost>
-    </materialDesign:DialogHost>
+        </md:DrawerHost>
+    </md:DialogHost>
 </Window>
