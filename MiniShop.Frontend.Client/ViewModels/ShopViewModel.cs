@@ -1,5 +1,7 @@
 ﻿using MiniShop.Frontend.Client.Dtos;
+using MiniShop.Frontend.Client.Events;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -12,18 +14,19 @@ namespace MiniShop.Frontend.Client.ViewModels
 {
     public class ShopViewModel : BindableBase
     {
-        private ShopDto shopDto;
+        IEventAggregator ea;
 
+        public DelegateCommand<string> ExecuteCommand { get; private set; }
+
+        private ShopDto shopDto;
         public ShopDto ShopDto
         {
             get { return shopDto; }
             set { shopDto = value; RaisePropertyChanged(); }
         }
 
-        public ShopViewModel()
+        public ShopViewModel(IEventAggregator ea)
         {
-            ExecuteCommand = new DelegateCommand<string>(Execute);
-
             #region datainit
             ShopDto = new ShopDto()
             {
@@ -316,9 +319,11 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
             #endregion
 
+            this.ea = ea;
+            ExecuteCommand = new DelegateCommand<string>(Execute);
+            this.ea.GetEvent<ItemSentToShopEvent>().Subscribe(ItemReceived);
         }
 
-        public DelegateCommand<string> ExecuteCommand { get; private set; }
 
         private void Execute(string obj)
         {
@@ -334,6 +339,7 @@ namespace MiniShop.Frontend.Client.ViewModels
 
         private void AllCancel()
         {
+            ShopDto.ShopItemDtos.Clear();
         }
 
         private void PageUp()
@@ -350,6 +356,11 @@ namespace MiniShop.Frontend.Client.ViewModels
 
         private void SettleAccounts()
         {
+        }
+
+        private void ItemReceived(ShopItemDto item)
+        {
+            ShopDto.ShopItemDtos.Add(item);
         }
     }
 }
