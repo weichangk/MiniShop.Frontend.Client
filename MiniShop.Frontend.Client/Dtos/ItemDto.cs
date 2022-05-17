@@ -16,5 +16,11 @@
             set { code = value; OnPropertyChanged(); }
         }
 
+        private decimal price;
+        public decimal Price
+        {
+            get { return price; }
+            set { price = value; OnPropertyChanged(); }
+        }
     }
 }
