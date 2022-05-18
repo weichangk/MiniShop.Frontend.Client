@@ -180,28 +180,56 @@
                         <WrapPanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
+                
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="380" Height="50">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="25"/>
-                                <ColumnDefinition Width="110"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition Height="10"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Code}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Number}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Amount}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                        </Grid>
+                        <RadioButton GroupName="radioGroup" x:Name="PART_RadioButton">
+                            <RadioButton.Template>
+                                <ControlTemplate TargetType="{x:Type RadioButton}">
+                                    <Border Background="Green" x:Name="PART_Border">
+                                        <Grid Width="380" Height="50">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="25"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition Height="10"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Code}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Number}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Amount}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="PART_Border" Property="Background" Value="Red"/>
+                                        </Trigger>
+                                        <!--<Trigger Property="IsFocused" Value="true">
+                                            <Setter Property="Checked" Value="true" />
+                                        </Trigger>-->
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </RadioButton.Template>
+
+                            <!--<RadioButton.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <Trigger Property="Control.IsFocused" Value="True">
+                                            <Setter Property="IsChecked" Value="True"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>-->
+
+                        </RadioButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 
