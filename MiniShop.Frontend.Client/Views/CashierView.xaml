@@ -19,11 +19,13 @@
     FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="380"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <local:ShopView/>
-        <Grid Grid.Column="1">
+        <local:CashierOperView Grid.Column="0"/>
+        <local:ShopView Grid.Column="1"/>
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
