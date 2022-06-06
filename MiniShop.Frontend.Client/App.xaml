@@ -42,7 +42,34 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
+            <Style x:Key="ShopcarListBoxItemStyle" TargetType="ListBoxItem">
+                <Setter Property="MinHeight" Value="60"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Grid>
+                                <Border x:Name="borderHeader"/>
+                                <Border x:Name="border"/>
+                                <ContentPresenter 
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="borderHeader" Property="BorderThickness"  Value="0,0,0,4"/>
+                                    <Setter TargetName="borderHeader" Property="BorderBrush" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                                    <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                                    <Setter TargetName="border" Property="Opacity" Value="0"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                                    <Setter TargetName="border" Property="Opacity" Value="0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style x:Key="CashierOperBarListBoxItemStyle" TargetType="ListBoxItem">
                 <Setter Property="MinHeight" Value="40"/>
                 <Setter Property="Template">

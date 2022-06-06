@@ -24,6 +24,7 @@ namespace MiniShop.Frontend.Client
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<CashierDeskView, CashierDeskViewModel>();
             containerRegistry.RegisterForNavigation<CashierView, CashierViewModel>();
             containerRegistry.RegisterForNavigation<ShopView, ShopViewModel>();
             containerRegistry.RegisterForNavigation<CategoryView, CategoryViewModel>();

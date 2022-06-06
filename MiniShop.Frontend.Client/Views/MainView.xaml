@@ -9,7 +9,7 @@
         xmlns:ext="clr-namespace:MiniShop.Frontend.Client.Extensions"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1280" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
+        Title="MainWindow" Height="768" Width="1024" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
         prism:ViewModelLocator.AutoWireViewModel="True"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -76,6 +76,7 @@
 
             <DockPanel>
                 <md:ColorZone
+                    Height="55"
                     x:Name="ColorZone"
                     Padding="16"
                     md:ShadowAssist.ShadowDepth="Depth2"
