@@ -47,7 +47,7 @@
                              ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel />
+                                <WrapPanel/>
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
@@ -98,11 +98,16 @@
                 </Grid>
             </Grid>
 
-            <Grid Grid.Column="1" Margin="4">
+            <Grid 
+                x:Name="CategorysAndItemsGrid" 
+                Grid.Column="1" 
+                Margin="4">
+                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
+                
                 <ScrollViewer 
                     x:Name="CategorysScrollViewer" 
                     HorizontalScrollBarVisibility="Hidden"
@@ -125,75 +130,104 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock 
-                                Width="70"
-                                Text="{Binding Name}"
-                                TextAlignment="Center"
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Center"
-                                FontSize="18"/>
+                                    Width="70"
+                                    Text="{Binding Name}"
+                                    TextAlignment="Center"
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center"
+                                    FontSize="18"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </ScrollViewer>
-                <ScrollViewer Grid.Row="1"
-                              x:Name="ItemsScrollViewer" 
-                              VerticalScrollBarVisibility="Hidden">
-                    <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding ItemDtos}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Cursor="Hand" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <md:TransitioningContent OpeningEffect="{md:TransitionEffect Kind=ExpandIn}">
-                                    <Grid
-                                Width="163"
-                                MinHeight="139"
-                                MaxHeight="140"
-                                Margin="4">
-
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction 
+                
+                <ListBox 
+                    Grid.Row="1"
+                    Margin="0,4,0,0"
+                    x:Name="ItemsListBox" 
+                    ItemsSource="{Binding ItemDtos}"
+                    ItemContainerStyle="{StaticResource ItemListBoxItemStyle}"
+                    ScrollViewer.CanContentScroll="False" 
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <md:TransitioningContent OpeningEffect="{md:TransitionEffect Kind=ExpandIn}">
+                                <Grid
+                                    Width="163"
+                                    MinHeight="137"
+                                    MaxHeight="137"
+                                    Margin="0">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction 
                                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, Mode=FindAncestor}, Path=DataContext.SelectItemCommand }" 
                                             CommandParameter="{Binding Id}" >
-                                                </i:InvokeCommandAction>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
 
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto" />
-                                            <RowDefinition Height="auto" />
-                                            <RowDefinition />
-                                            <RowDefinition Height="auto" />
-                                        </Grid.RowDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
 
-                                        <Border Background="#8E85FE"
+                                    <Border x:Name="border"
+                                            Background="#8E85FE"
                                             Grid.RowSpan="4"    
-                                            CornerRadius="3"/>
-
-                                        <TextBlock
+                                            CornerRadius="3">
+                                    </Border>
+                                    
+                                    <TextBlock
                                             Padding="10,5"
                                             FontWeight="Bold"
                                             Text="{Binding Name}" />
-                                        <TextBlock
+                                    <TextBlock
                                             Grid.Row="1"
                                             Padding="10,5"
                                             Text="{Binding Code}" />
-                                        <TextBlock
+                                    <TextBlock
                                             Grid.Row="3"
                                             Padding="10,5"
-                                            Text="{Binding Price, StringFormat=￥{0:F2}}" 
-                                    
-                                    TextAlignment="Right"/>
-                                    </Grid>
-                                </md:TransitioningContent>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
+                                            Text="{Binding Price, StringFormat=￥{0:F2}}"                                 
+                                            TextAlignment="Right"/>
+                                </Grid>
+                            </md:TransitioningContent>
+                            <!--<DataTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                                    <Setter TargetName="border" Property="Opacity" Value="0"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                                    <Setter TargetName="border" Property="Opacity" Value="0"/>
+                                </Trigger>
+                            </DataTemplate.Triggers>-->
+                        </DataTemplate>
+                        
+                    </ListBox.ItemTemplate>
+
+                    <!--<ListBox.ItemContainerStyle>
+
+                        <Style TargetType="ListBoxItem">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter Property="Background" Value="LightPink"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>-->
+                </ListBox>
+                
             </Grid>
         </Grid>
     </Grid>
