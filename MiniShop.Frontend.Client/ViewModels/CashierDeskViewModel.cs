@@ -19,8 +19,8 @@ namespace MiniShop.Frontend.Client.ViewModels
             get { return shopDto; }
             set { shopDto = value; RaisePropertyChanged(); }
         }
-        private ObservableCollection<CategoryDto> categoryDtos;
-        public ObservableCollection<CategoryDto> CategoryDtos
+        private ObservableCollection<CategorieDto> categoryDtos;
+        public ObservableCollection<CategorieDto> CategoryDtos
         {
             get { return categoryDtos; }
             set { categoryDtos = value; RaisePropertyChanged(); }
@@ -58,6 +58,8 @@ namespace MiniShop.Frontend.Client.ViewModels
         }
 
         public DelegateCommand<CashierOperBar> CashierOperCommand { get; }
+        public DelegateCommand<int?> SelectItemCommand { get; private set; }
+        public DelegateCommand<int?> SelectCategorieCommand { get; private set; }
 
         public CashierDeskViewModel()
         {
@@ -228,29 +230,29 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
 
 
-            CategoryDtos = new ObservableCollection<CategoryDto>
+            CategoryDtos = new ObservableCollection<CategorieDto>
             {
-                new CategoryDto{ Id = 1, Code = "101", Name = "水果" },
-                new CategoryDto{ Id = 2, Code = "101", Name = "手机" },
-                new CategoryDto{ Id = 3, Code = "101", Name = "烟" },
-                new CategoryDto{ Id = 4, Code = "101", Name = "酒" },
-                new CategoryDto{ Id = 5, Code = "101", Name = "猪肉" },
-                new CategoryDto{ Id = 6, Code = "101", Name = "水果1" },
-                new CategoryDto{ Id = 7, Code = "101", Name = "水果2" },
-                new CategoryDto{ Id = 8, Code = "101", Name = "水果3" },
-                new CategoryDto{ Id = 9, Code = "101", Name = "水果4" },
-                new CategoryDto{ Id = 10, Code = "101", Name = "水果5" },
-                new CategoryDto{ Id = 11, Code = "101", Name = "水果6" },
-                new CategoryDto{ Id = 12, Code = "101", Name = "水果7" },
-                new CategoryDto{ Id = 13, Code = "101", Name = "水果8" },
-                new CategoryDto{ Id = 14, Code = "101", Name = "水果9" },
-                new CategoryDto{ Id = 15, Code = "101", Name = "水果10" },
-                new CategoryDto{ Id = 15, Code = "101", Name = "水果11" },
-                new CategoryDto{ Id = 15, Code = "101", Name = "水果12" },
-                new CategoryDto{ Id = 15, Code = "101", Name = "水果13" },
-                new CategoryDto{ Id = 15, Code = "101", Name = "水果14" },
-                new CategoryDto{ Id = 15, Code = "101", Name = "水果15" },
-                new CategoryDto{ Id = 15, Code = "101", Name = "水果16" },
+                new CategorieDto{ Id = 1, Code = 101, Name = "水果" },
+                new CategorieDto{ Id = 2, Code = 101, Name = "手机" },
+                new CategorieDto{ Id = 3, Code = 101, Name = "烟" },
+                new CategorieDto{ Id = 4, Code = 101, Name = "酒" },
+                new CategorieDto{ Id = 5, Code = 101, Name = "猪肉" },
+                new CategorieDto{ Id = 6, Code = 101, Name = "水果1" },
+                new CategorieDto{ Id = 7, Code = 101, Name = "水果2" },
+                new CategorieDto{ Id = 8, Code = 101, Name = "水果3" },
+                new CategorieDto{ Id = 9, Code = 101, Name = "水果4" },
+                new CategorieDto{ Id = 10, Code = 101, Name = "水果5" },
+                new CategorieDto{ Id = 11, Code = 101, Name = "水果6" },
+                new CategorieDto{ Id = 12, Code = 101, Name = "水果7" },
+                new CategorieDto{ Id = 13, Code = 101, Name = "水果8" },
+                new CategorieDto{ Id = 14, Code = 101, Name = "水果9" },
+                new CategorieDto{ Id = 15, Code = 101, Name = "水果10" },
+                new CategorieDto{ Id = 15, Code = 101, Name = "水果11" },
+                new CategorieDto{ Id = 15, Code = 101, Name = "水果12" },
+                new CategorieDto{ Id = 15, Code = 101, Name = "水果13" },
+                new CategorieDto{ Id = 15, Code = 101, Name = "水果14" },
+                new CategorieDto{ Id = 15, Code = 101, Name = "水果15" },
+                new CategorieDto{ Id = 15, Code = 101, Name = "水果16" },
             };
 
             ItemDtos = new ObservableCollection<ItemDto>
@@ -344,6 +346,23 @@ namespace MiniShop.Frontend.Client.ViewModels
 
             CreateCashierOperBar();
             CashierOperCommand = new DelegateCommand<CashierOperBar>(CashierOper);
+
+            SelectItemCommand = new DelegateCommand<int?>(SelectCategorie);
+            SelectCategorieCommand = new DelegateCommand<int?>(SelectCategorie);
+
+
         }
+
+        private void SelectCategorie(int? id)
+        {
+            CategorieDto selectCategorie = CategoryDtos.ToList().FirstOrDefault(i => i.Id == id);
+            if (selectCategorie != null)
+            {
+                selectCategorie.Name += "1";
+            }
+
+        }
+
+
     }
 }

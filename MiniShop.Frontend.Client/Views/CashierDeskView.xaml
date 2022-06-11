@@ -139,13 +139,22 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock 
+                                <TextBlock
                                     Width="70"
                                     Text="{Binding Name}"
                                     TextAlignment="Center"
                                     VerticalAlignment="Center" 
                                     HorizontalAlignment="Center"
-                                    FontSize="16"/>
+                                    FontSize="16">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction 
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, Mode=FindAncestor}, Path=DataContext.SelectCategorieCommand }" 
+                                                CommandParameter="{Binding Id}" >
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBlock>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

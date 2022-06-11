@@ -1,21 +1,37 @@
 ﻿using MiniShop.Frontend.Client.Common;
+using MiniShop.Frontend.Client.Dtos;
 using MiniShop.Frontend.Client.Extensions;
+using MiniShop.Frontend.Client.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Weick.Orm.Core.Result;
 
 namespace MiniShop.Frontend.Client.ViewModels
 {
     public class MainViewModel : BindableBase
     {
-        public MainViewModel(IRegionManager regionManager)
+        private readonly Lazy<ISysParmService> _sysParmService;
+        public MainViewModel(IRegionManager regionManager, ILogger logger, Lazy<ISysParmService> sysParmService)
         {
+            logger.Information("1");
+            logger.Debug("2");
+            logger.Fatal("3");
+            logger.Verbose("4");
+            logger.Warning("5");
+
+            _sysParmService = sysParmService;
+            var ss = sysParmService.Value.GetByIdAsync(1);
+            var sss = (ResultModel<SysParmDto>)ss.Result;
+            var ssss = sss.Data;
+
             CreateMenuBar();
             this.regionManager = regionManager;
             NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
