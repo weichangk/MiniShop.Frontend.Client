@@ -3,6 +3,7 @@ using MiniShop.Frontend.Client.Dtos;
 using MiniShop.Frontend.Client.Extensions;
 using MiniShop.Frontend.Client.Services;
 using Prism.Commands;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Regions;
 using Serilog;
@@ -16,24 +17,28 @@ using Weick.Orm.Core.Result;
 
 namespace MiniShop.Frontend.Client.ViewModels
 {
-    public class MainViewModel : BindableBase
+    public class MainViewModel : BindableBase, IConfigureService
     {
-        private readonly Lazy<ISysParmService> _sysParmService;
-        public MainViewModel(IRegionManager regionManager, ILogger logger, Lazy<ISysParmService> sysParmService)
-        {
-            logger.Information("1");
-            logger.Debug("2");
-            logger.Fatal("3");
-            logger.Verbose("4");
-            logger.Warning("5");
+        private readonly Lazy<ISysParmService> sysParmService;
+        private readonly IContainerProvider containerProvider;
+        private readonly IRegionManager regionManager;
+        private IRegionNavigationJournal journal;
 
-            _sysParmService = sysParmService;
+        public MainViewModel(IContainerProvider containerProvider, 
+            IRegionManager regionManager, 
+            ILogger logger, 
+            Lazy<ISysParmService> sysParmService)
+        {
+
+            sysParmService = sysParmService;
             var ss = sysParmService.Value.GetByIdAsync(1);
             var sss = (ResultModel<SysParmDto>)ss.Result;
             var ssss = sss.Data;
 
-            CreateMenuBar();
+            //CreateMenuBar();
+            this.containerProvider = containerProvider;
             this.regionManager = regionManager;
+
             NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
             GoBackCommand = new DelegateCommand(() =>
             {
@@ -43,6 +48,11 @@ namespace MiniShop.Frontend.Client.ViewModels
             GoForwardCommand = new DelegateCommand(() => {
                 if (journal != null && journal.CanGoForward)
                     journal.GoForward();
+            });
+            LoginOutCommand = new DelegateCommand(() =>
+            {
+                //注销当前用户
+                App.LoginOut(containerProvider);
             });
         }
 
@@ -55,12 +65,12 @@ namespace MiniShop.Frontend.Client.ViewModels
             });
         }
 
+        public DelegateCommand LoginOutCommand { get; private set; }
         public DelegateCommand<MenuBar> NavigateCommand { get; }
         public DelegateCommand GoBackCommand { get; }
         public DelegateCommand GoForwardCommand { get; }
 
-        private readonly IRegionManager regionManager;
-        private IRegionNavigationJournal journal;
+
 
         private ObservableCollection<MenuBar> menuBars;
         public ObservableCollection<MenuBar> MenuBars 
@@ -76,6 +86,13 @@ namespace MiniShop.Frontend.Client.ViewModels
             MenuBars.Add(new MenuBar { Icon = "FileArrowLeftRight", Title = "查交易", NameSpace = "CheckDealView" });
             MenuBars.Add(new MenuBar { Icon = "Vhs", Title = "查库存", NameSpace = "CheckStockView" });
             MenuBars.Add(new MenuBar { Icon = "Cog", Title = "设置", NameSpace = "SettingView" });
+        }
+
+        public void Configure()
+        {
+            //UserName = AppSession.UserName;
+            CreateMenuBar();
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("CashierDeskView");
         }
     }
 }
