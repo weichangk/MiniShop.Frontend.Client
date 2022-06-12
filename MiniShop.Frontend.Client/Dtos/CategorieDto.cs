@@ -4,8 +4,7 @@ namespace MiniShop.Frontend.Client.Dtos
 {
     public class CategorieDto : NotifyPropertyChangedDto
     {
-        private int id;
-        public int Id { get { return id; } set { id = value; OnPropertyChanged(); } }
+        public int Id { get; set; }
 
         private Guid shopId;
         public Guid ShopId { get { return shopId; } set { shopId = value; OnPropertyChanged(); } }

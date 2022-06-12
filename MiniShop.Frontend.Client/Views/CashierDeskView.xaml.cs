@@ -25,6 +25,7 @@ namespace MiniShop.Frontend.Client.Views
             InitializeComponent();
         }
 
+        //水平listbox鼠标滚动左右移动
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             ScrollViewer scrollViewer = (ScrollViewer)sender;

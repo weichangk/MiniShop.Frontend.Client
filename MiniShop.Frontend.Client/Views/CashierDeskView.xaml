@@ -72,10 +72,14 @@
                     <TextBlock Grid.Column="4" Text="小计" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
                 </Grid>
                 <Grid x:Name="ShopcarGrid" Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="59*"/>
+                        <ColumnDefinition Width="265*"/>
+                    </Grid.ColumnDefinitions>
                     <ListBox x:Name="ShopcarListBox" 
-                             ItemsSource="{Binding ShopDto.ShopItemDtos}" 
+                             ItemsSource="{Binding SaleItemDtos}" 
                              ItemContainerStyle="{StaticResource ShopcarListBoxItemStyle}"
-                             ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                             ScrollViewer.VerticalScrollBarVisibility="Hidden" Grid.ColumnSpan="2">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel/>
@@ -124,7 +128,7 @@
                     VerticalScrollBarVisibility="Hidden"
                     PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                     <ListBox x:Name="CategoryListBox" 
-                             ItemsSource="{Binding CategoryDtos}" 
+                             ItemsSource="{Binding CategorieDtos}" 
                              ScrollViewer.CanContentScroll="False"
                              ScrollViewer.PanningMode="HorizontalOnly"  
                              ItemContainerStyle="{StaticResource MaterialDesignChoiceChipOutlineListBoxItem}"
@@ -243,8 +247,8 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction 
-                            Command="{Binding NavigateCommand}"
-                            CommandParameter="{Binding ElementName=menuBar, Path=SelectedItem}"/>
+                            Command="{Binding CashierOperCommand}"
+                            CommandParameter="{Binding ElementName=CashierOperBar, Path=SelectedItem}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.ItemsPanel>

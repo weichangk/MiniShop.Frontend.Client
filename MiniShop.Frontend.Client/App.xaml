@@ -135,6 +135,7 @@
                                 <Trigger Property="IsSelected" Value="True">
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsSelected" Value="False"/>
                                     <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
                                     <Setter TargetName="border" Property="Opacity" Value="0.2"/>
                                 </Trigger>

@@ -1,7 +1,9 @@
 ﻿namespace MiniShop.Frontend.Client.Dtos
 {
-    public class ShopPreviousBillDto : BaseDto
+    public class PreviousSaleBillDto : NotifyPropertyChangedDto
     {
+        public int Id { get; set; }
+
         private string billNo;
 
         public string BillNo

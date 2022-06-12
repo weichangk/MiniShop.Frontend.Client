@@ -13,23 +13,29 @@ namespace MiniShop.Frontend.Client.ViewModels
 {
     public class CashierDeskViewModel : BindableBase
     {
-        private ShopDto shopDto;
-        public ShopDto ShopDto
+        private ObservableCollection<CategorieDto>categorieDtos;
+        public ObservableCollection<CategorieDto> CategorieDtos
         {
-            get { return shopDto; }
-            set { shopDto = value; RaisePropertyChanged(); }
-        }
-        private ObservableCollection<CategorieDto> categoryDtos;
-        public ObservableCollection<CategorieDto> CategoryDtos
-        {
-            get { return categoryDtos; }
-            set { categoryDtos = value; RaisePropertyChanged(); }
+            get { return categorieDtos; }
+            set { categorieDtos = value; RaisePropertyChanged(); }
         }
         private ObservableCollection<ItemDto> itemDtos;
         public ObservableCollection<ItemDto> ItemDtos
         {
             get { return itemDtos; }
             set { itemDtos = value; RaisePropertyChanged(); }
+        }
+        private ObservableCollection<SaleItemDto> saleItemDtos;
+        public ObservableCollection<SaleItemDto> SaleItemDtos
+        {
+            get { return saleItemDtos; }
+            set { saleItemDtos = value; RaisePropertyChanged(); }
+        }
+        private SaleTotalDto saleTotalDtos;
+        public SaleTotalDto SaleTotalDtos
+        {
+            get { return saleTotalDtos; }
+            set { saleTotalDtos = value; RaisePropertyChanged(); }
         }
         private ObservableCollection<CashierOperBar> cashierOperBars;
         public ObservableCollection<CashierOperBar> CashierOperBars
@@ -38,199 +44,170 @@ namespace MiniShop.Frontend.Client.ViewModels
             set { cashierOperBars = value; RaisePropertyChanged(); }
         }
 
-        void CreateCashierOperBar()
-        {
-            cashierOperBars = new ObservableCollection<CashierOperBar>();
-            cashierOperBars.Add(new CashierOperBar { Icon = "Home", Title = "结账", NameSpace = "CashierView" });
-            cashierOperBars.Add(new CashierOperBar { Icon = "FileArrowLeftRight", Title = "会员", NameSpace = "CheckDealView" });
-            cashierOperBars.Add(new CashierOperBar { Icon = "Vhs", Title = "优惠", NameSpace = "CheckStockView" });
-            cashierOperBars.Add(new CashierOperBar { Icon = "Cog", Title = "退货", NameSpace = "SettingView" });
-            cashierOperBars.Add(new CashierOperBar { Icon = "Cog", Title = "挂单", NameSpace = "SettingView" });
-            cashierOperBars.Add(new CashierOperBar { Icon = "Cog", Title = "赠送", NameSpace = "SettingView" });
-            cashierOperBars.Add(new CashierOperBar { Icon = "Cog", Title = "修改", NameSpace = "SettingView" });
-            cashierOperBars.Add(new CashierOperBar { Icon = "Cog", Title = "整单取消", NameSpace = "SettingView" });
-            cashierOperBars.Add(new CashierOperBar { Icon = "Cog", Title = "更多", NameSpace = "SettingView" });
-        }
-        private void CashierOper(CashierOperBar obj)
-        {
-            if (obj == null || string.IsNullOrEmpty(obj.NameSpace))
-                return;
-        }
 
-        public DelegateCommand<CashierOperBar> CashierOperCommand { get; }
+
         public DelegateCommand<int?> SelectItemCommand { get; private set; }
         public DelegateCommand<int?> SelectCategorieCommand { get; private set; }
+        public DelegateCommand<CashierOperBar> CashierOperCommand { get; }
 
         public CashierDeskViewModel()
         {
             #region datainit
-            ShopDto = new ShopDto()
+            SaleTotalDtos = new SaleTotalDto()
             {
-                ShopPreviousBillDto = new ShopPreviousBillDto(),
-                ShopVipDto = new ShopVipDto(),
-                ShopItemDtos = new ObservableCollection<ShopItemDto>(),
+                Amount = 123,
+                Number = 10,
             };
 
-            ShopDto.Amount = 123;
-            ShopDto.Number = 10;
+            SaleItemDtos = new ObservableCollection<SaleItemDto>
+            {
+                new SaleItemDto
+                {
+                    Id = 1,
+                    Name = "哈哈哈",
+                    Code = "1234567890123",
+                    Price = 10,
+                    Number = 1,
+                    Amount = 10,
+                },
+                new SaleItemDto
+                {
+                    Id = 2,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 3,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 4,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 5,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 6,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 7,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 8,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 1,
+                    Name = "哈哈哈",
+                    Code = "1234567890123",
+                    Price = 10,
+                    Number = 1,
+                    Amount = 10,
+                },
+                new SaleItemDto
+                {
+                    Id = 2,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 3,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 4,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 5,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 6,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 7,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                },
+                new SaleItemDto
+                {
+                    Id = 8,
+                    Name = "哈哈哈",
+                    Code = "6699663355114",
+                    Price = 9999.99M,
+                    Number = 9999.99M,
+                    Amount = 1013.01M,
+                }
+            };
 
-            ShopDto.ShopPreviousBillDto.BillNo = "1111111111111";
-            ShopDto.ShopPreviousBillDto.Receivable = 1;
-            ShopDto.ShopPreviousBillDto.Realreceivable = 1;
-            ShopDto.ShopPreviousBillDto.GiveChange = 1;
-
-            ShopDto.ShopVipDto.Name = "张三";
-            ShopDto.ShopVipDto.Phone = "188888888888";
-            ShopDto.ShopVipDto.Remain = 100;
-            ShopDto.ShopVipDto.Integral = 1000;
-
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 1,
-                Name = "哈哈哈",
-                Code = "1234567890123",
-                Price = 10,
-                Number = 1,
-                Amount = 10,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 2,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 3,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 4,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 5,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 6,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 7,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 8,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 1,
-                Name = "哈哈哈",
-                Code = "1234567890123",
-                Price = 10,
-                Number = 1,
-                Amount = 10,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 2,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 3,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 4,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 5,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 6,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 7,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-            ShopDto.ShopItemDtos.Add(new ShopItemDto
-            {
-                Id = 8,
-                Name = "哈哈哈",
-                Code = "6699663355114",
-                Price = 9999.99M,
-                Number = 9999.99M,
-                Amount = 1013.01M,
-            });
-
-
-            CategoryDtos = new ObservableCollection<CategorieDto>
+            CategorieDtos = new ObservableCollection<CategorieDto>
             {
                 new CategorieDto{ Id = 1, Code = 101, Name = "水果" },
                 new CategorieDto{ Id = 2, Code = 101, Name = "手机" },
@@ -342,12 +319,24 @@ namespace MiniShop.Frontend.Client.ViewModels
                 new ItemDto{ Id = 41, Code = "141", Name = "水果15", Price = 41 },
                 new ItemDto{ Id = 42, Code = "142", Name = "水果16", Price = 42 },
             };
+
+            CashierOperBars = new ObservableCollection<CashierOperBar>
+            {
+                new CashierOperBar { Icon = "Home", Title = "结账", NameSpace = "SettleAccountView" },
+                new CashierOperBar { Icon = "FileArrowLeftRight", Title = "会员", NameSpace = "VipView" },
+                new CashierOperBar { Icon = "Vhs", Title = "优惠", NameSpace = "CheckStockView" },
+                new CashierOperBar { Icon = "Cog", Title = "退货", NameSpace = "SettingView" },
+                new CashierOperBar { Icon = "Cog", Title = "挂单", NameSpace = "SettingView" },
+                new CashierOperBar { Icon = "Cog", Title = "赠送", NameSpace = "SettingView" },
+                new CashierOperBar { Icon = "Cog", Title = "修改", NameSpace = "SettingView" },
+                new CashierOperBar { Icon = "Cog", Title = "整单取消", NameSpace = "AllCancelCommand" },
+                new CashierOperBar { Icon = "Cog", Title = "更多", NameSpace = "SettingView" }
+            };
             #endregion
 
-            CreateCashierOperBar();
-            CashierOperCommand = new DelegateCommand<CashierOperBar>(CashierOper);
 
-            SelectItemCommand = new DelegateCommand<int?>(SelectCategorie);
+            CashierOperCommand = new DelegateCommand<CashierOperBar>(CashierOper);
+            SelectItemCommand = new DelegateCommand<int?>(SelectItem);
             SelectCategorieCommand = new DelegateCommand<int?>(SelectCategorie);
 
 
@@ -355,14 +344,53 @@ namespace MiniShop.Frontend.Client.ViewModels
 
         private void SelectCategorie(int? id)
         {
-            CategorieDto selectCategorie = CategoryDtos.ToList().FirstOrDefault(i => i.Id == id);
+            CategorieDto selectCategorie = CategorieDtos.ToList().First(i => i.Id == id);
             if (selectCategorie != null)
             {
                 selectCategorie.Name += "1";
+            }
+        }
+        private void SelectItem(int? id)
+        {
+            ItemDto selectItem = ItemDtos.ToList().First(i => i.Id == id);
+            if (selectItem != null)
+            {
+                SaleItemDto shopItemDto = new()
+                {
+                    Id = selectItem.Id,
+                    Code = selectItem.Code,
+                    Name = selectItem.Name,
+                    Price = selectItem.Price,
+                    Number = 1,
+                    Amount = selectItem.Price,
+                };
+                SaleItemDtos.Add(shopItemDto);
+            }
+        }
+        private void CashierOper(CashierOperBar obj)
+        {
+            if (obj == null || string.IsNullOrEmpty(obj.NameSpace))
+                return;
+            if (obj.NameSpace.Contains("View"))
+            {
+                //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate(obj.NameSpace, back => {
+                //    journal = back.Context.NavigationService.Journal;
+                //});
+            }
+            else
+            {
+                switch (obj.NameSpace)
+                {
+                    case "AllCancelCommand": AllCancel(); break;
+                }
             }
 
         }
 
 
+        private void AllCancel()
+        {
+            SaleItemDtos.Clear();
+        }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MiniShop.Frontend.Client.Events
 {
-    public class ItemSentToShopEvent : PubSubEvent<ShopItemDto>
+    public class ItemSentToShopEvent : PubSubEvent<SaleItemDto>
     {
 
     }

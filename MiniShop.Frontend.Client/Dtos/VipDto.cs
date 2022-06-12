@@ -1,7 +1,9 @@
 ﻿namespace MiniShop.Frontend.Client.Dtos
 {
-    public class ShopVipDto : BaseDto
+    public class VipDto : NotifyPropertyChangedDto
     {
+        public int Id { get; set; }
+
         private string name;
 
         public string Name

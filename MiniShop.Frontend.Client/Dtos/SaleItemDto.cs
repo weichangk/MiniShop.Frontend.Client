@@ -2,8 +2,10 @@
 
 namespace MiniShop.Frontend.Client.Dtos
 {
-    public class ShopItemDto : BaseDto
+    public class SaleItemDto : NotifyPropertyChangedDto
     {
+        public int Id { get; set; }
+
         private string name;
         public string Name
         {
