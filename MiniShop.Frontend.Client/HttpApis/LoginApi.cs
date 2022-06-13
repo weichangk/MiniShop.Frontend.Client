@@ -4,12 +4,13 @@ using MiniShop.Frontend.Client.Common;
 using MiniShop.Frontend.Client.Dtos;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace MiniShop.Frontend.Client.HttpApis
 {
     public class LoginApi
     {
-        public bool AccessTokenAsync(UserDto user, IConfiguration configuration, out string error)
+        public static async Task<bool> AccessTokenAsync(UserDto user, IConfiguration configuration, string error)
         {
             error = "";
             if (string.IsNullOrWhiteSpace(user.UserName) || string.IsNullOrWhiteSpace(user.PassWord))
@@ -19,7 +20,7 @@ namespace MiniShop.Frontend.Client.HttpApis
             }
 
             var client = new HttpClient();
-            var disco = client.GetDiscoveryDocumentAsync(configuration["IdsConfig:Authority"]).Result;
+            var disco = await client.GetDiscoveryDocumentAsync(configuration["IdsConfig:Authority"]);
             if (disco.IsError)
             {
                 //error = disco.Error;
@@ -28,7 +29,7 @@ namespace MiniShop.Frontend.Client.HttpApis
             }
 
             // request access token
-            var tokenResponse = client.RequestPasswordTokenAsync(new PasswordTokenRequest
+            var tokenResponse = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
                 Address = disco.TokenEndpoint,
                 ClientId = configuration["IdsConfig:ClientId"],
@@ -36,7 +37,7 @@ namespace MiniShop.Frontend.Client.HttpApis
                 Scope = configuration["IdsConfig:Scopes"],
                 UserName = user.UserName,
                 Password = user.PassWord
-            }).Result;
+            });
 
             if (tokenResponse.IsError)
             {
@@ -50,7 +51,7 @@ namespace MiniShop.Frontend.Client.HttpApis
             var apiClient = new HttpClient();
             apiClient.SetBearerToken(UserInfo.AccessToken);
 
-            var response = apiClient.GetAsync(disco.UserInfoEndpoint).Result;
+            var response = await apiClient.GetAsync(disco.UserInfoEndpoint);
             if (!response.IsSuccessStatusCode)
             {
                 error = "";
@@ -58,7 +59,7 @@ namespace MiniShop.Frontend.Client.HttpApis
             }
             else
             {
-                var content = response.Content.ReadAsStringAsync().Result;
+                var content = await response.Content.ReadAsStringAsync();
                 dynamic sss =  JsonConvert.DeserializeObject(content);
                 UserInfo.Email = sss.email;
                 UserInfo.Phone = sss.phone_number;

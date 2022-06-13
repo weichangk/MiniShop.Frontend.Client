@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using MiniShop.Frontend.Client.Common;
 using MiniShop.Frontend.Client.Dtos;
 using MiniShop.Frontend.Client.Extensions;
 using MiniShop.Frontend.Client.HttpApis;
@@ -22,13 +23,23 @@ namespace MiniShop.Frontend.Client.ViewModels
 
         private readonly IEventAggregator aggregator;
         private readonly IConfiguration configuration;
+        private readonly IItemApi itemApi;
+        private readonly ICategorieApi categorieApi;
+        private readonly IUnitApi unitApi;
 
         public DelegateCommand<string> ExecuteCommand { get; private set; }
 
-        public LoginViewModel(IEventAggregator aggregator, IConfiguration configuration)
+        public LoginViewModel(IEventAggregator aggregator, 
+            IConfiguration configuration,
+            IItemApi itemApi,
+            ICategorieApi categorieApi,
+            IUnitApi unitApi)
         {
             this.aggregator = aggregator;
             this.configuration = configuration;
+            this.itemApi = itemApi;
+            this.categorieApi = categorieApi;
+            this.unitApi = unitApi;
             ExecuteCommand = new DelegateCommand<string>(Execute);
         }
 
@@ -91,28 +102,29 @@ namespace MiniShop.Frontend.Client.ViewModels
             }
         }
 
-        private void Login()
+        private async void Login()
         {
-            LoginApi loginApi = new LoginApi();
             UserDto user = new UserDto
             {
                 UserName = UserName,
                 PassWord = PassWord,
             };
-            bool loginResult = loginApi.AccessTokenAsync(user, configuration, out string error);
-            if (loginResult)
+            string error = "";
+            bool loginSuccess = await LoginApi.AccessTokenAsync(user, configuration, error);
+            if (loginSuccess)
             {
                 ProgressBarVisibility = "Visible";
 
                 progressBarValue = 10;
-                DownloadCategorieData();
+                await DownloadCategorieData();
                 progressBarValue = 20;
-                DownloadUnitData();
+                await DownloadUnitData();
                 progressBarValue = 30;
-                DownloadItemData();
+                await DownloadItemDataAsync();
                 progressBarValue = 40;
 
                 RequestClose?.Invoke(new DialogResult(ButtonResult.OK));
+
             }
             else
             {
@@ -127,16 +139,19 @@ namespace MiniShop.Frontend.Client.ViewModels
             RequestClose?.Invoke(new DialogResult(ButtonResult.No));
         }
 
-        private void DownloadCategorieData()
+        private async Task DownloadCategorieData()
         {
+            var result = await ExecuteApi.ExecuteApiAsync(() => { return categorieApi.GetListAllByShopIdAsync(UserInfo.ShopId); });
         }
 
-        private void DownloadUnitData()
+        private async Task DownloadUnitData()
         {
+            var result = await ExecuteApi.ExecuteApiAsync(() => { return unitApi.GetListAllByShopIdAsync(UserInfo.ShopId); });
         }
 
-        private void DownloadItemData()
+        private async Task DownloadItemDataAsync()
         {
+            var result = await ExecuteApi.ExecuteApiAsync(() => { return itemApi.GetListAllByShopIdAsync(UserInfo.ShopId); });
         }
     }
 }

@@ -10,9 +10,9 @@ namespace MiniShop.Frontend.Client.HttpApis
     [MiniShopApi]
     [SetAccessToken]
     [JsonReturn]
-    public interface IUnitApi : IHttpApi
+    public interface IItemApi : IHttpApi
     {
-        [HttpGet("/api/unit/GetListAllByShopIdAsync")]
+        [HttpGet("/api/item/GetListAllByShopIdAsync")]
         ITask<ResultModel<List<dynamic>>> GetListAllByShopIdAsync(Guid shopId, bool isDescending = false);
     }
 }
