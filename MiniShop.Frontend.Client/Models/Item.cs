@@ -1,10 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MiniShop.Frontend.Client.Models
 {
     [Table("Item")]
     public class Item : EntityBase<int>
     {
+        /// <summary>
+        /// 商品ID
+        /// </summary>
+        public int ItemId { get; set; }
+
         /// <summary>
         /// 类别ID
         /// </summary>
@@ -53,6 +59,6 @@ namespace MiniShop.Frontend.Client.Models
         /// <summary>
         /// 商品图片
         /// </summary>
-        public string Picture { get; set; }
+        public string? Picture { get; set; }
     }
 }

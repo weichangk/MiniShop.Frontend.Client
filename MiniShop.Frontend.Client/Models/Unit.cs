@@ -6,6 +6,11 @@ namespace MiniShop.Frontend.Client.Models
     public class Unit : EntityBase<int>
     {
         /// <summary>
+        /// 单位ID
+        /// </summary>
+        public int UnitId { get; set; }
+
+        /// <summary>
         /// 单位编码
         /// </summary>
         public int Code { get; set; }

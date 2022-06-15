@@ -28,7 +28,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="3.2.0" />
     <PackageReference Include="WebApiClientCore" Version="2.0.2" />
-    <PackageReference Include="Weick.Orm.Core" Version="1.0.0" />
+    <PackageReference Include="Weick.Orm.Core" Version="1.0.4" />
   </ItemGroup>
 
   <ItemGroup>

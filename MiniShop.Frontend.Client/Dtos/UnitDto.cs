@@ -2,9 +2,18 @@
 
 namespace MiniShop.Frontend.Client.Dtos
 {
-    public class UnitDto
+    public class UnitDto : NotifyPropertyChangedDto
     {
-        public int Id { get; set; }
-        public Guid ShopId { get; set; }
+        private int id;
+        public int Id { get { return id; } set { id = value; OnPropertyChanged(); } }
+
+        public Guid shopId;
+        public Guid ShopId { get { return shopId; } set { shopId = value; OnPropertyChanged(); } }
+
+        public int code;
+        public int Code { get { return code; } set { code = value; OnPropertyChanged(); } }
+
+        public string name;
+        public string Name { get { return name; } set { name = value; OnPropertyChanged(); } }
     }
 }

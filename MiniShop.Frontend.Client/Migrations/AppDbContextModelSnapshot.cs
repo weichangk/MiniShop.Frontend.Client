@@ -22,6 +22,9 @@ namespace MiniShop.Frontend.Client.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CategorieId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Code")
                         .HasColumnType("INTEGER");
 
@@ -40,6 +43,12 @@ namespace MiniShop.Frontend.Client.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategorieId")
+                        .IsUnique();
+
+                    b.HasIndex("ShopId", "Code")
+                        .IsUnique();
+
                     b.ToTable("Categorie");
                 });
 
@@ -56,12 +65,14 @@ namespace MiniShop.Frontend.Client.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ItemId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Picture")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
@@ -86,6 +97,12 @@ namespace MiniShop.Frontend.Client.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ItemId")
+                        .IsUnique();
+
+                    b.HasIndex("ShopId", "Code")
+                        .IsUnique();
 
                     b.ToTable("Item");
                 });
@@ -113,6 +130,9 @@ namespace MiniShop.Frontend.Client.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ShopId", "Key", "Type")
+                        .IsUnique();
+
                     b.ToTable("SysParm");
                 });
 
@@ -132,7 +152,16 @@ namespace MiniShop.Frontend.Client.Migrations
                     b.Property<Guid>("ShopId")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UnitId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UnitId")
+                        .IsUnique();
+
+                    b.HasIndex("ShopId", "Code")
+                        .IsUnique();
 
                     b.ToTable("Unit");
                 });

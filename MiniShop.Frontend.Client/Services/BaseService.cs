@@ -6,6 +6,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Weick.Orm.Core;
 using Weick.Orm.Core.Result;
@@ -33,6 +34,11 @@ namespace MiniShop.Frontend.Client.Services
             _mapper = mapper;
             UnitOfWork = unitOfWork;
             this._repository = repository;
+        }
+
+        public void AttachIfNot(TEntity entity)
+        {
+            _repository.Value.AttachIfNot(entity);
         }
 
         public virtual async Task<IResultModel> GetByIdAsync(TKey id)
@@ -65,6 +71,28 @@ namespace MiniShop.Frontend.Client.Services
             return ResultModel.Failed("error：Insert Save failed", 500);
         }
 
+        public virtual async Task<IResultModel> InsertAsync(TEntity model)
+        {
+            await _repository.Value.InsertAsync(model);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            _logger.Error($"error：Insert Save failed");
+            return ResultModel.Failed("error：Insert Save failed", 500);
+        }
+
+        public virtual async Task<IResultModel> InsertAsync(IEnumerable<TEntity> models)
+        {
+            await _repository.Value.InsertAsync(models);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            _logger.Error($"error：Insert Save failed");
+            return ResultModel.Failed("error：Insert Save failed", 500);
+        }
+
         public virtual async Task<IResultModel> UpdateAsync(TEntityDTO model)
         {
             //主键判断
@@ -75,12 +103,22 @@ namespace MiniShop.Frontend.Client.Services
                 return ResultModel.NotExists;
             }
             _mapper.Value.Map(model, entity);
-            entity.ModifiedTime = DateTime.Now;
             _repository.Value.Update(entity);
 
             if (await UnitOfWork.SaveChangesAsync() > 0)
             {
                 return ResultModel.Success(entity);
+            }
+            _logger.Error($"error：Update Save failed");
+            return ResultModel.Failed("error：Update Save failed", 500);
+        }
+
+        public virtual async Task<IResultModel> UpdateAsync(TEntity model)
+        {
+            _repository.Value.Update(model);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
             }
             _logger.Error($"error：Update Save failed");
             return ResultModel.Failed("error：Update Save failed", 500);
@@ -98,10 +136,22 @@ namespace MiniShop.Frontend.Client.Services
                     _logger.Error($"error：entity Id {((dynamic)model).Id} does not exist");
                     return ResultModel.NotExists;
                 }
+                _mapper.Value.Map(model, entity);
                 entitys.Add(entity);
             }
             _repository.Value.Update(entitys);
 
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            _logger.Error($"error：Updates Save failed");
+            return ResultModel.Failed("error：Updates Save failed", 500);
+        }
+
+        public virtual async Task<IResultModel> UpdateAsync(IEnumerable<TEntity> models)
+        {
+            _repository.Value.Update(models);
             if (await UnitOfWork.SaveChangesAsync() > 0)
             {
                 return ResultModel.Success();
@@ -120,6 +170,17 @@ namespace MiniShop.Frontend.Client.Services
                 return ResultModel.NotExists;
             }
             _repository.Value.Delete(entity);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            _logger.Error($"error：Remove failed");
+            return ResultModel.Failed("error：Delete failed", 500);
+        }
+
+        public virtual async Task<IResultModel> DeleteAsync(TEntity model)
+        {
+            _repository.Value.Delete(model);
             if (await UnitOfWork.SaveChangesAsync() > 0)
             {
                 return ResultModel.Success();
@@ -148,5 +209,115 @@ namespace MiniShop.Frontend.Client.Services
             _logger.Error($"error：Delete failed");
             return ResultModel.Failed("error：Remove failed", 500);
         }
+
+        public virtual async Task<IResultModel> DeleteAsync(IEnumerable<TEntity> models)
+        {
+            _repository.Value.Delete(models);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            _logger.Error($"error：Delete failed");
+            return ResultModel.Failed("error：Remove failed", 500);
+        }
+
+        #region BulkExtensions
+        public async Task<IResultModel> BulkInsertAsync(IList<TEntity> entities)
+        {
+            if (!entities.Any())
+                return ResultModel.Failed("error：entities No elements", 500);
+
+            await _repository.Value.BulkInsertAsync(entities);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            else
+            {
+                _logger.Error($"error：BulkInsert failed");
+                return ResultModel.Failed("error：BulkInsert failed", 500);
+            }
+        }
+        public async Task<IResultModel> BulkUpdateAsync(IList<TEntity> entities)
+        {
+            if (!entities.Any())
+                return ResultModel.Failed("error：entities No elements", 500);
+
+            await _repository.Value.BulkUpdateAsync(entities);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            else
+            {
+                _logger.Error($"error：BulkUpdate failed");
+                return ResultModel.Failed("error：BulkUpdate failed", 500);
+            }
+        }
+        public async Task<IResultModel> BulkDeleteAsync(IList<TEntity> entities)
+        {
+            if (!entities.Any())
+                return ResultModel.Failed("error：entities No elements", 500);
+
+            await _repository.Value.BulkDeleteAsync(entities);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            else
+            {
+                _logger.Error($"error：BulkDelete failed");
+                return ResultModel.Failed("error：BulkDelete failed", 500);
+            }
+        }
+        public async Task<IResultModel> BulkInsertOrUpdateAsync(IList<TEntity> entities)
+        {
+            if (!entities.Any())
+                return ResultModel.Failed("error：entities No elements", 500);
+
+            await _repository.Value.BulkInsertOrUpdateAsync(entities);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            else
+            {
+                _logger.Error($"error：BulkInsertOrUpdate failed");
+                return ResultModel.Failed("error：BulkInsertOrUpdate failed", 500);
+            }
+        }
+        public async Task<IResultModel> BulkInsertOrUpdateOrDeleteAsync(IList<TEntity> entities)
+        {
+            if (!entities.Any())
+                return ResultModel.Failed("error：entities No elements", 500);
+
+            await _repository.Value.BulkInsertOrUpdateOrDeleteAsync(entities);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            else
+            {
+                _logger.Error($"error：BulkInsertOrUpdateOrDelete failed");
+                return ResultModel.Failed("error：BulkInsertOrUpdateOrDelete failed", 500);
+            }
+        }
+        public async Task<IResultModel> BulkReadAsync(IList<TEntity> entities)
+        {
+            if (!entities.Any())
+                return ResultModel.Failed("error：entities No elements", 500);
+
+            await _repository.Value.BulkReadAsync(entities);
+            if (await UnitOfWork.SaveChangesAsync() > 0)
+            {
+                return ResultModel.Success();
+            }
+            else
+            {
+                _logger.Error($"error：BulkRead failed");
+                return ResultModel.Failed("error：BulkRead failed", 500);
+            }
+        }
+        #endregion
     }
 }

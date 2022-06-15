@@ -7,6 +7,11 @@ namespace MiniShop.Frontend.Client.Models
     public class Categorie : EntityBase<int>
     {
         /// <summary>
+        /// 类别ID
+        /// </summary>
+        public int CategorieId { get; set; }
+
+        /// <summary>
         /// 类别编码
         /// </summary>
         public int Code { get; set; }
